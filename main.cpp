@@ -1,6 +1,7 @@
 // self-practice delete
 
 #include "Linked_List.h"
+#include "Simple_List.h"
 #include <iostream>
 
 using namespace std;
@@ -11,13 +12,14 @@ int main(int argc, char *argv[]) {
     node<int>* head_ptr = nullptr; //Forget this == 20 hours of debugging
 
     //test insert_head()
+    cout << "demo for insert head" << endl;
     for (int i = 0; i < 10; i++) {
         insert_head(head_ptr, i * 10);
         print_list(head_ptr);
     }
     cout << endl << endl << "=====================" << endl;
 
-    node<int>* found_it = find(head_ptr, 22);
+    node<int>* found_it = search_list(head_ptr, 20);
     if (found_it != nullptr)
         cout << "\nfound: " << found_it->_item << endl;
     else {
@@ -39,22 +41,27 @@ int main(int argc, char *argv[]) {
     cout << endl << endl << "=====================" << endl;
 
 
-    cout << "demo for delete node" << endl;
+    cout << "demo for delete node " << insert_it->_item << endl;
     delete_node(head_ptr, insert_it);
     print_list(head_ptr);
     cout << endl << endl << "=====================" << endl;
-    //    
-
-    cout << "demo for delete node" << endl;
-    delete_node(head_ptr, insert_it->_next);
-    print_list(head_ptr);
-    cout << endl << endl << "=====================" << endl;
-
 
 
     cout << "demo for delete head" << endl;
     delete_head(head_ptr);
     print_list(head_ptr);
+    cout << endl << endl << "=====================" << endl;
+
+    cout << "demo for clear list" << endl;
+    clear_list(head_ptr);
+    print_list(head_ptr);
+    cout << endl << endl << "=====================" << endl;
+
+    cout << "demo for insert head" << endl;
+    for (int i = 0; i < 10; i++) {
+        insert_head(head_ptr, i * 2 % 5 + 3 * 2);
+        print_list(head_ptr);
+    }
     cout << endl << endl << "=====================" << endl;
 
 

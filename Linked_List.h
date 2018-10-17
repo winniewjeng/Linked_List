@@ -1,4 +1,4 @@
-//FUCK YOU
+
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
@@ -69,6 +69,22 @@ node<T>* insert_before(node<T>* head_ptr, node<T>* mark, const T& item) {
     return new_node;
 }
 
+//Not yet tested
+
+template <typename T>
+//find the pointer to the previous node of prevToThis
+node<T>* PreviousNode(node<T>* head_ptr, node<T>* prevToThis) {
+    node<T>* walker = head_ptr;
+    while (walker != nullptr) {
+        if (walker->_next == prevToThis) {
+            return walker;
+        }
+        walker = walker->_next;
+    }
+    return nullptr;
+}
+
+
 //IMPLEMENTED
 
 template<typename T>
@@ -109,20 +125,11 @@ void print_list(node<T>* head_ptr) {
 
 //NOT YET IMPLEMENTED
 
-template<typename T>
-//recursive?
-void print_list_backward(node<T>* head_ptr) {
-    //1. get a walker
-    //2. keep walking down linked list as long as walker != nullptr
-    //3. output
-    //    node<T>* walker = head_ptr;
-    //    while (walker != nullptr) {
-    //        cout << " [" << walker->_item << "] -->";
-    //        //traverse the walker down. New syntax!
-    //        walker = walker->_next;
-    //    }
-    //    cout << "|||" << endl;
-}
+//template<typename T>
+////recursive?
+//void print_list_backward(node<T>* head_ptr) {
+//
+//}
 
 //IMPLEMENTED
 
@@ -136,44 +143,16 @@ T delete_head(node<T>*& head_ptr) {
     //3. get head_ptr to skip the head node and point to the node after it
     //4. delete temp, which points to the head node
 
-//    cout << "freaking doesn't work sucker" << endl;
-//    //1. assert that the list is not empty
-//    assert(head_ptr != nullptr);
-//    //2. get a temp node_ptr to point to the head node
-//    node<T>* temp = head_ptr;
-//    //3. get a T variable to store item in head node
-//    T hold_this_item = head_ptr->_item;
-//    //4. get head_ptr to skip the head node and point to the node after it
-//    head_ptr = head_ptr->_next;
-//    cout << head_ptr << endl;
-//    cout << temp << endl;
-//    //4. delete temp, which points to the head node
-//     delete temp;
-//    return hold_this_item;
-    
-    assert(head_ptr!=NULL);
- 
-    //0. a T variable and store item from head node
+    assert(head_ptr != nullptr);
     T hold_this = head_ptr->_item;
- 
-    //1. declare a node ptr to hold the removed node
     node<T>* temp;
- 
-    //2. temp = head: point temp to where head is pointing to
     temp = head_ptr;
-    cout << temp->_item << endl;
-//    temp->_next = nullptr;
- 
-    //3. head points to the next node in the chain:
-    //head_ptr = temp->_next;
     head_ptr = head_ptr->_next;
- 
-    //delete temp: release the space temp is pointing to
-//    delete temp;
- 
-    //return T variable
+    delete temp;
+
     return hold_this;
 }
+
 
 //IMPLEMENTED
 
@@ -190,22 +169,23 @@ T delete_node(node<T>* head_ptr, node<T>* mark) {
     node<T>* walker = head_ptr;
     while (walker != nullptr) {
         if (walker->_next == mark) {
+            node<T>* temp = mark;
             temp_item = mark->_item;
             walker->_next = mark->_next;
-            delete mark->_next; ////
+            delete temp; ////
             return temp_item;
         }
         walker = walker->_next;
     }
 
-    return NULL;
+    return 0;
 }
 
 //IMPLEMENTED
 
 template<typename T>
-//find an item in linked list. Return the address of the node where item is found
-node<T>* find(node<T>* head_ptr, const T& item) {
+//find an item in linked list. Return the address of the node where item is found -- ALSO CALLED searchList
+node<T>* search_list(node<T>* head_ptr, const T& item) {
     //1. get a walker to traverse down the linked list
     //2. if ._item == item, return the walker as it's on that node
     node<T>* walker = head_ptr;
@@ -218,6 +198,59 @@ node<T>* find(node<T>* head_ptr, const T& item) {
     //return nullptr if item is not found
     return nullptr;
 }
+
+//IMPLEMENTED
+
+template<typename T>
+//delete all node
+void clear_list(node<T>*& head_ptr) {
+    node<T>* walker = head_ptr;
+
+    while (walker != nullptr) {
+        delete_head(head_ptr);
+        walker = walker->_next;
+    }
+}
+
+//Not yet implemented 
+
+template<typename T>
+//_item at this position
+T& At(node<T>* head_ptr, int pos) {
+
+    int count = 0;
+    node<T>* walker = head_ptr;
+    while (count != pos) {
+        walker = walker->_next;
+    }
+    return walker->_item;
+
+}
+
+
+//. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+//      Sorted List Routines. order: 0: ascending, order: other: descending
+//                              Assume a Sorted List
+//. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+//Not yet implemented 
+template <typename T>
+//insert
+node<T>* InsertSorted(node<T>* &head_ptr, T item, bool ascending = true);
+
+//Not yet implemented 
+template <typename T>
+//insert or add if a dup
+node<T>* InsertSorted_and_add(node<T>* &head_ptr, T item, bool ascending = true);
+
+//Not yet implemented 
+template <typename T>
+//node after which this item goes //order: 0 ascending
+node<T>* WhereThisGoes(node<T>* head_ptr, T item, bool ascending = true);
+
+//Not yet implemented 
+template <typename T>
+node<T>* LastNode(node<T>* head_ptr); //Last Node in the list
 
 #endif /* LINKED_LIST_H */
 
