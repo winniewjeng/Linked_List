@@ -212,7 +212,7 @@ void clear_list(node<T>*& head_ptr) {
     }
 }
 
-//Not yet implemented 
+//Implemented 
 
 template<typename T>
 //_item at this position
@@ -220,11 +220,12 @@ T& At(node<T>* head_ptr, int pos) {
 
     int count = 0;
     node<T>* walker = head_ptr;
+
     while (count != pos) {
         walker = walker->_next;
+        count++;
     }
     return walker->_item;
-
 }
 
 
@@ -234,9 +235,34 @@ T& At(node<T>* head_ptr, int pos) {
 //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 //Not yet implemented 
+
 template <typename T>
 //insert
-node<T>* InsertSorted(node<T>* &head_ptr, T item, bool ascending = true);
+node<T>* InsertSorted(node<T>* &head_ptr, T item, bool ascending = true) {
+
+    insert_head(head_ptr, item);
+    node<T>* walker1 = head_ptr;
+    node<T>* walker2 = head_ptr->_next;
+
+    while (walker1 != nullptr && walker2 != nullptr) {
+
+        while (walker2 != nullptr) {
+
+            if (walker1->_item > walker2->_item) {
+                //swap
+                T temp = walker1->_item;
+                walker1->_item = walker2->_item;
+                walker2->_item = temp;
+            }
+            //move walker2
+            walker2 = walker2->_next;
+        }
+        walker1 = walker1->_next;
+        //reset walker2
+        walker2 = walker1->_next;
+    }
+    return head_ptr;
+}
 
 //Not yet implemented 
 template <typename T>

@@ -59,10 +59,18 @@ int main(int argc, char *argv[]) {
 
     cout << "demo for insert head" << endl;
     for (int i = 0; i < 10; i++) {
-        insert_head(head_ptr, i * 2 % 5 + 3 * 2);
+        insert_head(head_ptr, i);
         print_list(head_ptr);
     }
     cout << endl << endl << "=====================" << endl;
+    
+    cout << "demo for at" << endl;
+    cout << At(head_ptr, 1) << endl;
+    
+    cout << endl << endl << "=====================" << endl;
+    cout << "demo for insert sort" << endl;
+    InsertSorted(head_ptr, 12, true);
+    print_list(head_ptr);
 
 
     return 0;
