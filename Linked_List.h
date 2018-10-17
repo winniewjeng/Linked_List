@@ -14,20 +14,14 @@ struct node {
 
     //constructor
 
-    //    node(const T& item = T(), node<T>* next = nullptr) :
-    //    _item(item), _next(next) {
-    //    }
-
     node(const T& item = T(), node<T> *next = nullptr) {
         _item = item;
         _next = next;
     }
 
-    //    node<T>& operator[](int index) const {
-    //        node<T>* walker = head_ptr;
-    //    }
-
 };
+
+//IMPLEMENTED
 
 template<typename T>
 //insert_head takes in the address of head_ptr and item to populate the new head node
@@ -44,6 +38,8 @@ node<T>* insert_head(node<T>* &head_ptr, const T& item) {
     return head_ptr;
 
 }
+
+//IMPLEMENTED
 
 template<typename T>
 //insert_before takes in the address of the mark, and create a new node before the 
@@ -73,6 +69,8 @@ node<T>* insert_before(node<T>* head_ptr, node<T>* mark, const T& item) {
     return new_node;
 }
 
+//IMPLEMENTED
+
 template<typename T>
 //insert_after takes in the address of the mark, and create a new node after the 
 //mark and populate the new node with item and returns the address of the new node ptr
@@ -92,6 +90,8 @@ node<T>* insert_after(node<T>* head_ptr, node<T>* mark, const T& item) {
     return new_node;
 }
 
+//IMPLEMENTED
+
 template<typename T>
 //get a walker and traverse down the linked list and print out the items in the list
 void print_list(node<T>* head_ptr) {
@@ -107,23 +107,54 @@ void print_list(node<T>* head_ptr) {
     cout << "|||" << endl;
 }
 
-template<typename T>
+//NOT YET IMPLEMENTED
 
-T delete_head(node<T>* head_ptr) {
-    //fuck you asshole I hate you you wasted my time because of your bullshit
-    
-    //0. assert that the list is not empty
-    assert(head_ptr != nullptr);
-    //1. get a T variable to store item in head node
-    T hold_this_item = head_ptr->_item;
-    //2. get a temp node_ptr to point to the head node
-    node<T>* temp = head_ptr;
-    //3. get head_ptr to skip the head node and point to the node after it
-    head_ptr = head_ptr->_next;
-    //4. delete temp, which points to the head node
-    delete temp;
-    return hold_this_item;
+template<typename T>
+//recursive?
+void print_list_backward(node<T>* head_ptr) {
+    //1. get a walker
+    //2. keep walking down linked list as long as walker != nullptr
+    //3. output
+    //    node<T>* walker = head_ptr;
+    //    while (walker != nullptr) {
+    //        cout << " [" << walker->_item << "] -->";
+    //        //traverse the walker down. New syntax!
+    //        walker = walker->_next;
+    //    }
+    //    cout << "|||" << endl;
 }
+
+//IMPLEMENTED
+
+template<typename T>
+//fuck you
+T delete_head(node<T>* head_ptr) {
+//assert that the list is not empty()
+ 
+//    assert(!empty(head_ptr));
+    assert(head_ptr!=NULL);
+ 
+    //0. a T variable and store item from head node
+    T hold_this = head_ptr->_item;
+ 
+    //1. declare a node ptr to hold the removed node
+    node<T>* temp;
+ 
+    //2. temp = head: point temp to where head is pointing to
+    temp = head_ptr;
+ 
+    //3. head points to the next node in the chain:
+    //head_ptr = temp->_next;
+    head_ptr = head_ptr->_next;
+ 
+    //delete temp: release the space temp is pointing to
+    delete temp;
+ 
+    //return T variable
+    return hold_this;
+}
+
+//IMPLEMENTED
 
 template<typename T>
 //delete the node from linked list and return the item in node
@@ -140,13 +171,16 @@ T delete_node(node<T>* head_ptr, node<T>* mark) {
         if (walker->_next == mark) {
             temp_item = mark->_item;
             walker->_next = mark->_next;
-            delete[] mark->_next; ////
+            delete mark->_next; ////
+            return temp_item;
         }
         walker = walker->_next;
     }
-    
-    return temp_item;
+
+    return NULL;
 }
+
+//IMPLEMENTED
 
 template<typename T>
 //find an item in linked list. Return the address of the node where item is found
