@@ -1,8 +1,9 @@
-// SELF-PRACTICE
+//FUCK YOU
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
 #include <iostream>
+#include <cassert>
 using namespace std;
 
 template <typename T>
@@ -48,20 +49,27 @@ template<typename T>
 //insert_before takes in the address of the mark, and create a new node before the 
 //mark and populate the new node with item and returns the address of the new node ptr
 node<T>* insert_before(node<T>* head_ptr, node<T>* mark, const T& item) {
-    //1. create a new node named new_node, populated with item
+    //1. create a NEW node named new_node, populated with item
     //2. get a walker to traverse down the linked list to node where the _next points to mark
     //3. the node whose _next pointed to mark now points to new_node
     //5. new_node's _next points to mark
     //6. return insert_ptr
     node<T>* new_node = new node<T>(item);
     node<T>* walker = head_ptr;
-    while (walker != nullptr) {
+    while (walker != nullptr) { //don't fall off!
         if (walker->_next == mark) {
+            // walker is pointing to the node before the mark
             walker->_next = new_node;
+            //walker -> next = new node<T>(item);
             new_node->_next = mark;
+            return new_node;
         }
         walker = walker->_next;
     }
+    //if you get here, that mean you never found mark:
+    //  mark was not even on this list.
+    //FU!
+    assert(false);
     return new_node;
 }
 
@@ -80,14 +88,6 @@ node<T>* insert_after(node<T>* head_ptr, node<T>* mark, const T& item) {
     node<T>* new_node = new node<T>(item);
     new_node->_next = mark->_next;
     mark->_next = new_node;
-    //    node* walker = head_ptr;
-    //    while (walker != nullptr) {
-    //        if (walker == mark) {
-    //            new_node->_next = mark->_next;
-    //            mark->_next = new_node;
-    //        }
-    //        walker = walker->_next;
-    //    }
 
     return new_node;
 }
@@ -100,12 +100,29 @@ void print_list(node<T>* head_ptr) {
     //3. output
     node<T>* walker = head_ptr;
     while (walker != nullptr) {
-
         cout << " [" << walker->_item << "] -->";
         //traverse the walker down. New syntax!
         walker = walker->_next;
     }
     cout << "|||" << endl;
+}
+
+template<typename T>
+
+T delete_head(node<T>* head_ptr) {
+    //fuck you asshole I hate you you wasted my time because of your bullshit
+    
+    //0. assert that the list is not empty
+    assert(head_ptr != nullptr);
+    //1. get a T variable to store item in head node
+    T hold_this_item = head_ptr->_item;
+    //2. get a temp node_ptr to point to the head node
+    node<T>* temp = head_ptr;
+    //3. get head_ptr to skip the head node and point to the node after it
+    head_ptr = head_ptr->_next;
+    //4. delete temp, which points to the head node
+    delete temp;
+    return hold_this_item;
 }
 
 template<typename T>
@@ -123,10 +140,11 @@ T delete_node(node<T>* head_ptr, node<T>* mark) {
         if (walker->_next == mark) {
             temp_item = mark->_item;
             walker->_next = mark->_next;
+            delete[] mark->_next; ////
         }
         walker = walker->_next;
     }
-
+    
     return temp_item;
 }
 
@@ -135,16 +153,15 @@ template<typename T>
 node<T>* find(node<T>* head_ptr, const T& item) {
     //1. get a walker to traverse down the linked list
     //2. if ._item == item, return the walker as it's on that node
-    
     node<T>* walker = head_ptr;
-    while(walker != nullptr) {
+    while (walker != nullptr) {
         if (walker->_item == item) {
             return walker;
         }
         walker = walker->_next;
     }
-    
-    //what does it return if nothing is found?
+    //return nullptr if item is not found
+    return nullptr;
 }
 
 #endif /* LINKED_LIST_H */
