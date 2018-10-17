@@ -128,10 +128,29 @@ void print_list_backward(node<T>* head_ptr) {
 
 template<typename T>
 //fuck you
-T delete_head(node<T>* head_ptr) {
-//assert that the list is not empty()
- 
-//    assert(!empty(head_ptr));
+T delete_head(node<T>*& head_ptr) {
+
+    //0. assert that the list is not empty
+    //1. get a temp node_ptr to point to the head node
+    //2. get a T variable to store item in head node
+    //3. get head_ptr to skip the head node and point to the node after it
+    //4. delete temp, which points to the head node
+
+//    cout << "freaking doesn't work sucker" << endl;
+//    //1. assert that the list is not empty
+//    assert(head_ptr != nullptr);
+//    //2. get a temp node_ptr to point to the head node
+//    node<T>* temp = head_ptr;
+//    //3. get a T variable to store item in head node
+//    T hold_this_item = head_ptr->_item;
+//    //4. get head_ptr to skip the head node and point to the node after it
+//    head_ptr = head_ptr->_next;
+//    cout << head_ptr << endl;
+//    cout << temp << endl;
+//    //4. delete temp, which points to the head node
+//     delete temp;
+//    return hold_this_item;
+    
     assert(head_ptr!=NULL);
  
     //0. a T variable and store item from head node
@@ -142,13 +161,15 @@ T delete_head(node<T>* head_ptr) {
  
     //2. temp = head: point temp to where head is pointing to
     temp = head_ptr;
+    cout << temp->_item << endl;
+//    temp->_next = nullptr;
  
     //3. head points to the next node in the chain:
     //head_ptr = temp->_next;
     head_ptr = head_ptr->_next;
  
     //delete temp: release the space temp is pointing to
-    delete temp;
+//    delete temp;
  
     //return T variable
     return hold_this;

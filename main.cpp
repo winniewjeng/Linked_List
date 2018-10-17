@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     node<int>* insert_it = head_ptr->_next;
 
     cout << "demo for insert after" << endl;
-    insert_after(head_ptr, insert_it, 82);
+    insert_after(head_ptr, insert_it, 77);
     print_list(head_ptr);
     cout << endl << endl << "=====================" << endl;
 
@@ -38,17 +38,24 @@ int main(int argc, char *argv[]) {
     print_list(head_ptr);
     cout << endl << endl << "=====================" << endl;
 
+
     cout << "demo for delete node" << endl;
     delete_node(head_ptr, insert_it);
     print_list(head_ptr);
     cout << endl << endl << "=====================" << endl;
+    //    
+
+    cout << "demo for delete node" << endl;
+    delete_node(head_ptr, insert_it->_next);
+    print_list(head_ptr);
+    cout << endl << endl << "=====================" << endl;
+
+
 
     cout << "demo for delete head" << endl;
     delete_head(head_ptr);
     print_list(head_ptr);
     cout << endl << endl << "=====================" << endl;
-
-
 
 
     return 0;
