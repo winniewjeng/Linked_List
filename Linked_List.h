@@ -143,7 +143,6 @@ node<T>* copy_list(node<T>* head_ptr) {
 
 
     while (og_list_walker != nullptr) {
-        cout << "hi" << endl;
         insert_head(new_list_head, og_list_walker->_item); //head_ptr, item
         og_list_walker = og_list_walker->_next;
     }
