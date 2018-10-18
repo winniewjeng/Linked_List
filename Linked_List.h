@@ -234,34 +234,41 @@ T& At(node<T>* head_ptr, int pos) {
 //                              Assume a Sorted List
 //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
-//Not yet implemented 
+//Not clear on implementation
 
 template <typename T>
 //insert
 node<T>* InsertSorted(node<T>* &head_ptr, T item, bool ascending = true) {
 
-    insert_head(head_ptr, item);
-    node<T>* walker1 = head_ptr;
-    node<T>* walker2 = head_ptr->_next;
-
-    while (walker1 != nullptr && walker2 != nullptr) {
-
-        while (walker2 != nullptr) {
-
-            if (walker1->_item > walker2->_item) {
-                //swap
-                T temp = walker1->_item;
-                walker1->_item = walker2->_item;
-                walker2->_item = temp;
+        //insert item at head of linked list
+        insert_head(head_ptr, item);
+    
+        node<T>* walker1 = head_ptr;
+        node<T>* walker2 = head_ptr->_next;
+    
+        while (walker1 != nullptr && walker2 != nullptr) {
+    
+            while (walker2 != nullptr) {
+    
+                if (walker1->_item > walker2->_item) {
+                    //swap
+                    T temp = walker1->_item;
+                    walker1->_item = walker2->_item;
+                    walker2->_item = temp;
+                }
+                //move walker2
+                walker2 = walker2->_next;
             }
-            //move walker2
-            walker2 = walker2->_next;
+            walker1 = walker1->_next;
+            //reset walker2
+            walker2 = walker1->_next;
         }
-        walker1 = walker1->_next;
-        //reset walker2
-        walker2 = walker1->_next;
-    }
-    return head_ptr;
+        return head_ptr;
+    
+//    node<T>* place_here = WhereThisGoes(head_ptr, item, ascending = true);
+//    return insert_after(head_ptr, place_here, item);
+
+
 }
 
 //Not yet implemented 
@@ -269,14 +276,31 @@ template <typename T>
 //insert or add if a dup
 node<T>* InsertSorted_and_add(node<T>* &head_ptr, T item, bool ascending = true);
 
-//Not yet implemented 
+//Implemented -- not yet tested
 template <typename T>
 //node after which this item goes //order: 0 ascending
-node<T>* WhereThisGoes(node<T>* head_ptr, T item, bool ascending = true);
+node<T>* WhereThisGoes(node<T>* head_ptr, T item, bool ascending = true) {
 
-//Not yet implemented 
+    node<T>* walker = head_ptr;
+    while (walker != nullptr ) {
+        if (walker->_item == item) {
+            return walker;
+        }
+        walker = walker->_next;
+    }
+    return nullptr;
+}
+
+//Implemented -- not yet tested
 template <typename T>
-node<T>* LastNode(node<T>* head_ptr); //Last Node in the list
+//Last Node in the list
+node<T>* LastNode(node<T>* head_ptr) {
+    node<T> walker = head_ptr;
+    while (walker != nullptr) {
+        walker = walker._next;
+    }
+    return walker;
+}
 
 #endif /* LINKED_LIST_H */
 

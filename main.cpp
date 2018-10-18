@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
     
     cout << endl << endl << "=====================" << endl;
     cout << "demo for insert sort" << endl;
-    InsertSorted(head_ptr, 12, true);
+    InsertSorted(head_ptr, 7, true);
     print_list(head_ptr);
 
 
