@@ -11,7 +11,6 @@ private:
 
 public:
     //Constructor
-
     Simple_List() : head_ptr(nullptr) {
     }
 

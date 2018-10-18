@@ -27,16 +27,38 @@ template<typename T>
 //insert_head takes in the address of head_ptr and item to populate the new head node
 //and returns the address of the new head_ptr
 node<T>* insert_head(node<T>* &head_ptr, const T& item) {
-    //1. create a new node named temp
-    //2. temp's next points to the head_ptr
+    //1. create a new node
+    //2. next points to the head_ptr
     //3. point head_ptr to where temp is pointing to
     //4. return head_ptr
 
-    node<T>* temp = new node<T>(item);
-    temp->_next = head_ptr;
-    head_ptr = temp;
+    node<T>* new_node = new node<T>(item);
+    new_node->_next = head_ptr;
+    head_ptr = new_node;
     return head_ptr;
 
+}
+
+//IMPLEMENTED
+
+template<typename T>
+//insert_after takes in the address of the mark, and create a new node after the 
+//mark and populate the new node with item and returns the address of the new node ptr
+node<T>* insert_after(node<T>* head_ptr, node<T>* mark, const T& item) {
+    //1. create a new node named new_node, populated with item
+    //2. new_node's _next points to mark's _next
+    //3. mark's _next now points to new_node
+    //4. return new_node
+
+    //    node<T>* new_node = new node<T>(item);
+    //    new_node->_next = mark->_next;
+    //    mark->_next = new_node;
+
+    assert(mark != nullptr);
+
+
+
+    return insert_head(mark->_next, item);
 }
 
 //IMPLEMENTED
@@ -51,7 +73,9 @@ node<T>* insert_before(node<T>* head_ptr, node<T>* mark, const T& item) {
     //5. new_node's _next points to mark
     //6. return insert_ptr
     node<T>* new_node = new node<T>(item);
+
     node<T>* walker = head_ptr;
+
     while (walker != nullptr) { //don't fall off!
         if (walker->_next == mark) {
             // walker is pointing to the node before the mark
@@ -60,6 +84,7 @@ node<T>* insert_before(node<T>* head_ptr, node<T>* mark, const T& item) {
             new_node->_next = mark;
             return new_node;
         }
+
         walker = walker->_next;
     }
     //if you get here, that mean you never found mark:
@@ -88,27 +113,6 @@ node<T>* PreviousNode(node<T>* head_ptr, node<T>* prevToThis) {
 //IMPLEMENTED
 
 template<typename T>
-//insert_after takes in the address of the mark, and create a new node after the 
-//mark and populate the new node with item and returns the address of the new node ptr
-node<T>* insert_after(node<T>* head_ptr, node<T>* mark, const T& item) {
-    //1. create a new node named new_node, populated with item
-    //2. get a walker to traverse down the linked list and find the node that equals to mark
-    //3. new_node's _next points to mark's _next
-    //4. mark's _next now points to new_node
-    //5. return new_node
-
-    //Do you really need to pass in the head_ptr for the insert_after function??
-
-    node<T>* new_node = new node<T>(item);
-    new_node->_next = mark->_next;
-    mark->_next = new_node;
-
-    return new_node;
-}
-
-//IMPLEMENTED
-
-template<typename T>
 //get a walker and traverse down the linked list and print out the items in the list
 void print_list(node<T>* head_ptr) {
     //1. get a walker
@@ -121,6 +125,30 @@ void print_list(node<T>* head_ptr) {
         walker = walker->_next;
     }
     cout << "|||" << endl;
+}
+
+//NOT YET IMPLEMENTED
+
+template <typename T>
+//duplicate the list...
+node<T>* copy_list(node<T>* head_ptr) {
+    
+    if(head_ptr->_next == nullptr) {
+        return head_ptr;
+    }
+
+    node<T>* new_list_head = new node<T>(head_ptr->_item);
+    node<T>* og_list_walker = head_ptr;
+    node<T>* new_list_walker = new_list_head;
+
+
+    while (og_list_walker != nullptr) {
+        cout << "hi" << endl;
+        insert_head(new_list_head, og_list_walker->_item); //head_ptr, item
+        og_list_walker = og_list_walker->_next;
+    }
+    
+    return new_list_head;
 }
 
 //NOT YET IMPLEMENTED
@@ -240,33 +268,33 @@ template <typename T>
 //insert
 node<T>* InsertSorted(node<T>* &head_ptr, T item, bool ascending = true) {
 
-        //insert item at head of linked list
-        insert_head(head_ptr, item);
-    
-        node<T>* walker1 = head_ptr;
-        node<T>* walker2 = head_ptr->_next;
-    
-        while (walker1 != nullptr && walker2 != nullptr) {
-    
-            while (walker2 != nullptr) {
-    
-                if (walker1->_item > walker2->_item) {
-                    //swap
-                    T temp = walker1->_item;
-                    walker1->_item = walker2->_item;
-                    walker2->_item = temp;
-                }
-                //move walker2
-                walker2 = walker2->_next;
+    //insert item at head of linked list
+    insert_head(head_ptr, item);
+
+    node<T>* walker1 = head_ptr;
+    node<T>* walker2 = head_ptr->_next;
+
+    while (walker1 != nullptr && walker2 != nullptr) {
+
+        while (walker2 != nullptr) {
+
+            if (walker1->_item > walker2->_item) {
+                //swap
+                T temp = walker1->_item;
+                walker1->_item = walker2->_item;
+                walker2->_item = temp;
             }
-            walker1 = walker1->_next;
-            //reset walker2
-            walker2 = walker1->_next;
+            //move walker2
+            walker2 = walker2->_next;
         }
-        return head_ptr;
-    
-//    node<T>* place_here = WhereThisGoes(head_ptr, item, ascending = true);
-//    return insert_after(head_ptr, place_here, item);
+        walker1 = walker1->_next;
+        //reset walker2
+        walker2 = walker1->_next;
+    }
+    return head_ptr;
+
+    //    node<T>* place_here = WhereThisGoes(head_ptr, item, ascending = true);
+    //    return insert_after(head_ptr, place_here, item);
 
 
 }
@@ -277,12 +305,13 @@ template <typename T>
 node<T>* InsertSorted_and_add(node<T>* &head_ptr, T item, bool ascending = true);
 
 //Implemented -- not yet tested
+
 template <typename T>
 //node after which this item goes //order: 0 ascending
 node<T>* WhereThisGoes(node<T>* head_ptr, T item, bool ascending = true) {
 
     node<T>* walker = head_ptr;
-    while (walker != nullptr ) {
+    while (walker != nullptr) {
         if (walker->_item == item) {
             return walker;
         }
@@ -292,6 +321,7 @@ node<T>* WhereThisGoes(node<T>* head_ptr, T item, bool ascending = true) {
 }
 
 //Implemented -- not yet tested
+
 template <typename T>
 //Last Node in the list
 node<T>* LastNode(node<T>* head_ptr) {
