@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
 
     cout << "demo for insert head" << endl;
     for (int i = 10; i > 0; i--) {
-        insert_head(head_ptr, i*10);
+        insert_head(head_ptr, i * 10);
         print_list(head_ptr);
     }
     cout << endl << endl << "=====================" << endl;
@@ -70,15 +70,20 @@ int main(int argc, char *argv[]) {
     cout << "demo for insert sort " << endl;
     InsertSorted(head_ptr, 440, true);
     print_list(head_ptr);
-    
+
     cout << endl << endl << "=====================" << endl;
     cout << "demo for copy list" << endl;
     node<int>* copy = nullptr;
     copy = copy_list(head_ptr);
     print_list(copy);
-    
-    
 
+    cout << endl << endl << "=====================" << endl;
+    node<int>* insert_this = copy->_next;
+    cout << "demo for insert before" << endl;
+    insert_before(copy, insert_this, 98);
+    print_list(copy);
+    
+    
 
     return 0;
 }

@@ -72,26 +72,43 @@ node<T>* insert_before(node<T>* head_ptr, node<T>* mark, const T& item) {
     //3. the node whose _next pointed to mark now points to new_node
     //5. new_node's _next points to mark
     //6. return insert_ptr
-    node<T>* new_node = new node<T>(item);
-
+//    node<T>* new_node = new node<T>(item);
+//
+//    node<T>* walker = head_ptr;
+//
+//    while (walker != nullptr) { //don't fall off!
+//        if (walker->_next == mark) {
+//            // walker is pointing to the node before the mark
+//            walker->_next = new_node;
+//            //walker -> next = new node<T>(item);
+//            new_node->_next = mark;
+//            return new_node;
+//        }
+//
+//        walker = walker->_next;
+//    }
+//    //if you get here, that mean you never found mark:
+//    //  mark was not even on this list.
+//    assert(false);
+//    return new_node;
+    
+    //get a walker to point to head_ptr
     node<T>* walker = head_ptr;
-
-    while (walker != nullptr) { //don't fall off!
-        if (walker->_next == mark) {
-            // walker is pointing to the node before the mark
-            walker->_next = new_node;
-            //walker -> next = new node<T>(item);
-            new_node->_next = mark;
-            return new_node;
-        }
-
-        walker = walker->_next;
+    //get the location of the node prevous to mark calls previousNode
+    node<T>* p = PreviousNode(head_ptr, mark);
+    //traverse the walker down the list until you find p
+    while(walker != nullptr) {
+        if (walker == p) {
+            insert_after(head_ptr, p, item); //head_ptr, mark, item
+            return walker;
+        }  
     }
-    //if you get here, that mean you never found mark:
-    //  mark was not even on this list.
-    //FU!
+    
     assert(false);
-    return new_node;
+    return nullptr;
+    
+    
+    
 }
 
 //Not yet tested
@@ -108,7 +125,6 @@ node<T>* PreviousNode(node<T>* head_ptr, node<T>* prevToThis) {
     }
     return nullptr;
 }
-
 
 //IMPLEMENTED
 
@@ -127,10 +143,10 @@ void print_list(node<T>* head_ptr) {
     cout << "|||" << endl;
 }
 
-//NOT YET IMPLEMENTED
+//IMPLEMENTED
 
 template <typename T>
-//duplicate the list...erroneous. duplicate printing first element
+//duplicate the list...
 node<T>* copy_list(node<T>* head_ptr) {
     
     if(head_ptr->_next == nullptr) {

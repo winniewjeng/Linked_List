@@ -26,10 +26,9 @@ public:
         return::insert_after(head_ptr, mark, item);
     }
 //    
-//    node<T>* PreviousNode(node<T>* prevToThis) {
-//        return::PreviousNode(node<T>* head_ptr, node<T>* prevToThis);
-//    }
-//    
+    node<T>* PreviousNode(node<T>* prevToThis) {
+        return::PreviousNode(head_ptr, prevToThis);
+    }
 
 };
 #endif /* SIMPLE_LIST_H */
