@@ -130,23 +130,24 @@ void print_list(node<T>* head_ptr) {
 //NOT YET IMPLEMENTED
 
 template <typename T>
-//duplicate the list...
+//duplicate the list...erroneous. duplicate printing first element
 node<T>* copy_list(node<T>* head_ptr) {
     
     if(head_ptr->_next == nullptr) {
         return head_ptr;
     }
 
-    node<T>* new_list_head = new node<T>(head_ptr->_item);
-    node<T>* og_list_walker = head_ptr;
-    node<T>* new_list_walker = new_list_head;
+    node<T>* new_node = new node<T>(head_ptr->_item);
+    node<T>* og_list_walker = head_ptr->_next;
+    node<T>* new_list_walker = new_node;
 
     while (og_list_walker != nullptr) {
-        insert_head(new_list_head, og_list_walker->_item); //head_ptr, item
+        insert_after(new_node, new_list_walker, og_list_walker->_item); //head_ptr, item
         og_list_walker = og_list_walker->_next;
+        new_list_walker = new_list_walker->_next;
     }
     
-    return new_list_head;
+    return new_node;
 }
 
 //NOT YET IMPLEMENTED
