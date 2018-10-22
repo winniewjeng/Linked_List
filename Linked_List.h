@@ -141,7 +141,6 @@ node<T>* copy_list(node<T>* head_ptr) {
     node<T>* og_list_walker = head_ptr;
     node<T>* new_list_walker = new_list_head;
 
-
     while (og_list_walker != nullptr) {
         insert_head(new_list_head, og_list_walker->_item); //head_ptr, item
         og_list_walker = og_list_walker->_next;
@@ -264,36 +263,49 @@ T& At(node<T>* head_ptr, int pos) {
 //Not clear on implementation
 
 template <typename T>
-//insert
+//insert sorted calls where_this_goes
+//insert-sorted(head, ite, , ascending = true) bool ascending " = true" is not done in definition
+//so when caller calls insert_sorted(head, 35, false)
+//p = where this goes(head_pr, item, ascending)
+//if p is null, insert head, if p is not null, insert after
 node<T>* InsertSorted(node<T>* &head_ptr, T item, bool ascending = true) {
-
-    //insert item at head of linked list
-    insert_head(head_ptr, item);
-
-    node<T>* walker1 = head_ptr;
-    node<T>* walker2 = head_ptr->_next;
-
-    while (walker1 != nullptr && walker2 != nullptr) {
-
-        while (walker2 != nullptr) {
-
-            if (walker1->_item > walker2->_item) {
-                //swap
-                T temp = walker1->_item;
-                walker1->_item = walker2->_item;
-                walker2->_item = temp;
-            }
-            //move walker2
-            walker2 = walker2->_next;
-        }
-        walker1 = walker1->_next;
-        //reset walker2
-        walker2 = walker1->_next;
+    
+    node<T>* p = WhereThisGoes(head_ptr, item, ascending);
+    if (p == nullptr) {
+        return insert_head(head_ptr, item);
+        
     }
-    return head_ptr;
-
-    //    node<T>* place_here = WhereThisGoes(head_ptr, item, ascending = true);
-    //    return insert_after(head_ptr, place_here, item);
+    return insert_after(head_ptr, p, item); 
+    
+    
+    //head_ptr, node<T>* mark, const T& item
+//    //insert item at head of linked list
+//    insert_head(head_ptr, item);
+//
+//    node<T>* walker1 = head_ptr;
+//    node<T>* walker2 = head_ptr->_next;
+//
+//    while (walker1 != nullptr && walker2 != nullptr) {
+//
+//        while (walker2 != nullptr) {
+//
+//            if (walker1->_item > walker2->_item) {
+//                //swap
+//                T temp = walker1->_item;
+//                walker1->_item = walker2->_item;
+//                walker2->_item = temp;
+//            }
+//            //move walker2
+//            walker2 = walker2->_next;
+//        }
+//        walker1 = walker1->_next;
+//        //reset walker2
+//        walker2 = walker1->_next;
+//    }
+//    return head_ptr;
+//
+//    //    node<T>* place_here = WhereThisGoes(head_ptr, item, ascending = true);
+//    //    return insert_after(head_ptr, place_here, item);
 
 
 }
@@ -307,16 +319,23 @@ node<T>* InsertSorted_and_add(node<T>* &head_ptr, T item, bool ascending = true)
 
 template <typename T>
 //node after which this item goes //order: 0 ascending
+//two pointers walk down the list and figure out where item goes
 node<T>* WhereThisGoes(node<T>* head_ptr, T item, bool ascending = true) {
-
-    node<T>* walker = head_ptr;
-    while (walker != nullptr) {
-        if (walker->_item == item) {
-            return walker;
-        }
-        walker = walker->_next;
+    //returns nullptr if item < head_ptr._item or if head_ptr == nullptr
+    if (item <= head_ptr->_item || head_ptr == nullptr) {
+        return nullptr;
     }
-    return nullptr;
+    //return the location of the prev node where you want to insert the item
+    node<T>* walker1 = head_ptr;
+    node<T>* walker2 = head_ptr->_next;
+    while (walker2 != nullptr) {
+        if (item <= walker2->_item) {
+            return walker1;
+        }
+        walker1 = walker1->_next;
+        walker2 = walker2->_next;
+    }
+    return walker1;
 }
 
 //Implemented -- not yet tested

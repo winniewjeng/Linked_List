@@ -15,12 +15,21 @@ public:
     }
 
     node<T>* insert_head(const T& item) {
-        return ::insert_head(head_ptr, item);
+        return::insert_head(head_ptr, item);
     }
 
     node<T>* insert_before(node<T>* mark, const T& item) {
-        return ::insert_before(head_ptr, mark, item);
+        return::insert_before(head_ptr, mark, item);
     }
+    
+    node<T>* insert_after(node<T>* mark, const T& item) {
+        return::insert_after(head_ptr, mark, item);
+    }
+//    
+//    node<T>* PreviousNode(node<T>* prevToThis) {
+//        return::PreviousNode(node<T>* head_ptr, node<T>* prevToThis);
+//    }
+//    
 
 };
 #endif /* SIMPLE_LIST_H */
