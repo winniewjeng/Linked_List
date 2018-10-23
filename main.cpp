@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
     print_list(copy);
 
     cout << endl << endl << "=====================" << endl;
-    node<int>* insert_this = copy->_next;
+    node<int>* insert_this = (copy->_next)->_next;
     cout << "demo for insert before" << endl;
     insert_before(copy, insert_this, 98);
     print_list(copy);
