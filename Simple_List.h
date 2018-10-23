@@ -83,9 +83,10 @@ public:
         return PreviousNode(head_ptr, iMarker);
     }
     
-    //NOT YET IMPLEMENTED
     //return the item at index
-    T& operator[](int index);
+    T& operator[](int index) {
+        return At(head_ptr, index);
+    }
     
     //return the head of the list
     node<T>* Begin() const {
@@ -99,8 +100,17 @@ public:
     
     //NOT YET IMPLEMENTED
     //insertion operator for list
-    template <class U>
-    friend ostream& operator <<(ostream& outs, const Simple_List<U>& l);
+//    template <class U>
+//    friend ostream& operator <<(ostream& outs, const Simple_List<U>& l) {
+//        node<T>* walker = head_ptr;
+//        while (walker != nullptr) {
+//            outs << " [" << walker->_item << "] -->";
+//            walker = walker->_next;
+//        }
+//        outs << "|||" << endl;
+//        
+//        return outs;
+//    }
 };
 #endif /* SIMPLE_LIST_H */
 

@@ -360,24 +360,13 @@ node<T>* LastNode(node<T>* head_ptr) {
     return walker;
 }
 
-//IMPLEMENTED
-template <typename T>
-T& operator[](node<T>* head_ptr, int index) {
-    
-    node<T>* walker = head_ptr;
-    for (int i = 0; i != index; i++) {
-        walker = walker->_next;
-    }
-    
-    if (walker != nullptr) {
-        return walker->_item;
-    }
-    
-    assert(false);
-    return 0;
-    
-    
-}
+//
+//template <typename T>
+//T& operator[](node<T>* head_ptr, int index) {
+//
+//    return 0;
+//
+//}
 
 #endif /* LINKED_LIST_H */
 
