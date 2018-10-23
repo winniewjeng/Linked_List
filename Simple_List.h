@@ -10,7 +10,6 @@ private:
     node<T>* head_ptr;
 
 public:
-
     //Constructor
 
     Simple_List() : head_ptr(nullptr) {
@@ -60,7 +59,6 @@ public:
     }
 
     //insert i. Assume sorted list
-    //QUESTION -- Is my argument for insertSorted correct?
     node<T>* InsertSorted(T i) {
         return::InsertSorted(head_ptr, i);
     }
@@ -69,13 +67,40 @@ public:
     T Delete(node<T>* iMarker) {
         return::delete_node(iMarker);
     }
-
-    node<T>* PreviousNode(node<T>* prevToThis) {
-        return::PreviousNode(head_ptr, prevToThis);
+    
+    //print the list
+    void Print() const {
+        return print_list(head_ptr);
     }
-
-
-
+    
+    //return pointer to node containing key. NULL if not there
+    node<T>* Search(const T &key) {
+        return search_list(key);
+    }
+    
+    //get the previous node to iMarker
+    node<T>* Prev(node<T>* iMarker) {
+        return PreviousNode(head_ptr, iMarker);
+    }
+    
+    //NOT YET IMPLEMENTED
+    //return the item at index
+    T& operator[](int index);
+    
+    //return the head of the list
+    node<T>* Begin() const {
+        return head_ptr;
+    }
+    
+    //return the tail of the list: if you ever have to use this, you're screwed
+    node<T>* End() const {
+        return LastNode(head_ptr);
+    }
+    
+    //NOT YET IMPLEMENTED
+    //insertion operator for list
+    template <class U>
+    friend ostream& operator <<(ostream& outs, const Simple_List<U>& l);
 };
 #endif /* SIMPLE_LIST_H */
 

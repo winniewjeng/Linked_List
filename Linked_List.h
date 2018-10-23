@@ -91,24 +91,24 @@ node<T>* insert_before(node<T>* head_ptr, node<T>* mark, const T& item) {
     //  mark was not even on this list.
     assert(false);
     return new_node;
-    
-//    //get a walker to point to head_ptr
-//    node<T>* walker = head_ptr;
-//    //get the location of the node prevous to mark calls previousNode
-//    node<T>* p = PreviousNode(head_ptr, mark);
-//    //traverse the walker down the list until you find p
-//    while(walker != nullptr) {
-//        if (walker == p) {
-//            insert_after(head_ptr, p, item); //head_ptr, mark, item
-//            return walker;
-//        }  
-//    }
-//    
-//    assert(false);
-//    return nullptr;
-    
-    
-    
+
+    //    //get a walker to point to head_ptr
+    //    node<T>* walker = head_ptr;
+    //    //get the location of the node prevous to mark calls previousNode
+    //    node<T>* p = PreviousNode(head_ptr, mark);
+    //    //traverse the walker down the list until you find p
+    //    while(walker != nullptr) {
+    //        if (walker == p) {
+    //            insert_after(head_ptr, p, item); //head_ptr, mark, item
+    //            return walker;
+    //        }  
+    //    }
+    //    
+    //    assert(false);
+    //    return nullptr;
+
+
+
 }
 
 //Not yet tested
@@ -148,8 +148,8 @@ void print_list(node<T>* head_ptr) {
 template <typename T>
 //duplicate the list...
 node<T>* copy_list(node<T>* head_ptr) {
-    
-    if(head_ptr->_next == nullptr) {
+
+    if (head_ptr->_next == nullptr) {
         return head_ptr;
     }
 
@@ -162,7 +162,7 @@ node<T>* copy_list(node<T>* head_ptr) {
         og_list_walker = og_list_walker->_next;
         new_list_walker = new_list_walker->_next;
     }
-    
+
     return new_node;
 }
 
@@ -177,7 +177,6 @@ node<T>* copy_list(node<T>* head_ptr) {
 //IMPLEMENTED
 
 template<typename T>
-//fuck you
 T delete_head(node<T>*& head_ptr) {
 
     //0. assert that the list is not empty
@@ -188,8 +187,7 @@ T delete_head(node<T>*& head_ptr) {
 
     assert(head_ptr != nullptr);
     T hold_this = head_ptr->_item;
-    node<T>* temp;
-    temp = head_ptr;
+    node<T>* temp = head_ptr;
     head_ptr = head_ptr->_next;
     delete temp;
 
@@ -255,7 +253,7 @@ void clear_list(node<T>*& head_ptr) {
     }
 }
 
-//Implemented 
+//IMPLEMENTED 
 
 template<typename T>
 //_item at this position
@@ -277,52 +275,47 @@ T& At(node<T>* head_ptr, int pos) {
 //                              Assume a Sorted List
 //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
-//Not clear on implementation
+//IMPLEMENTED
 
 template <typename T>
-//insert sorted calls where_this_goes
-//insert-sorted(head, ite, , ascending = true) bool ascending " = true" is not done in definition
-//so when caller calls insert_sorted(head, 35, false)
-//p = where this goes(head_pr, item, ascending)
-//if p is null, insert head, if p is not null, insert after
 node<T>* InsertSorted(node<T>* &head_ptr, T item, bool ascending = true) {
-    
+
     node<T>* p = WhereThisGoes(head_ptr, item, ascending);
     if (p == nullptr) {
         return insert_head(head_ptr, item);
-        
+
     }
-    return insert_after(head_ptr, p, item); 
-    
-    
+    return insert_after(head_ptr, p, item);
+
+
     //head_ptr, node<T>* mark, const T& item
-//    //insert item at head of linked list
-//    insert_head(head_ptr, item);
-//
-//    node<T>* walker1 = head_ptr;
-//    node<T>* walker2 = head_ptr->_next;
-//
-//    while (walker1 != nullptr && walker2 != nullptr) {
-//
-//        while (walker2 != nullptr) {
-//
-//            if (walker1->_item > walker2->_item) {
-//                //swap
-//                T temp = walker1->_item;
-//                walker1->_item = walker2->_item;
-//                walker2->_item = temp;
-//            }
-//            //move walker2
-//            walker2 = walker2->_next;
-//        }
-//        walker1 = walker1->_next;
-//        //reset walker2
-//        walker2 = walker1->_next;
-//    }
-//    return head_ptr;
-//
-//    //    node<T>* place_here = WhereThisGoes(head_ptr, item, ascending = true);
-//    //    return insert_after(head_ptr, place_here, item);
+    //    //insert item at head of linked list
+    //    insert_head(head_ptr, item);
+    //
+    //    node<T>* walker1 = head_ptr;
+    //    node<T>* walker2 = head_ptr->_next;
+    //
+    //    while (walker1 != nullptr && walker2 != nullptr) {
+    //
+    //        while (walker2 != nullptr) {
+    //
+    //            if (walker1->_item > walker2->_item) {
+    //                //swap
+    //                T temp = walker1->_item;
+    //                walker1->_item = walker2->_item;
+    //                walker2->_item = temp;
+    //            }
+    //            //move walker2
+    //            walker2 = walker2->_next;
+    //        }
+    //        walker1 = walker1->_next;
+    //        //reset walker2
+    //        walker2 = walker1->_next;
+    //    }
+    //    return head_ptr;
+    //
+    //    //    node<T>* place_here = WhereThisGoes(head_ptr, item, ascending = true);
+    //    //    return insert_after(head_ptr, place_here, item);
 
 
 }
@@ -332,7 +325,7 @@ template <typename T>
 //insert or add if a dup
 node<T>* InsertSorted_and_add(node<T>* &head_ptr, T item, bool ascending = true);
 
-//Implemented -- not yet tested
+//IMPLEMENTED
 
 template <typename T>
 //node after which this item goes //order: 0 ascending
@@ -360,11 +353,30 @@ node<T>* WhereThisGoes(node<T>* head_ptr, T item, bool ascending = true) {
 template <typename T>
 //Last Node in the list
 node<T>* LastNode(node<T>* head_ptr) {
-    node<T> walker = head_ptr;
+    node<T>* walker = head_ptr;
     while (walker != nullptr) {
-        walker = walker._next;
+        walker = walker->_next;
     }
     return walker;
+}
+
+//IMPLEMENTED
+template <typename T>
+T& operator[](node<T>* head_ptr, int index) {
+    
+    node<T>* walker = head_ptr;
+    for (int i = 0; i != index; i++) {
+        walker = walker->_next;
+    }
+    
+    if (walker != nullptr) {
+        return walker->_item;
+    }
+    
+    assert(false);
+    return 0;
+    
+    
 }
 
 #endif /* LINKED_LIST_H */
